@@ -8,13 +8,13 @@ _A website for banking applications such as balance and transactions display,tra
 
 demo user accounts
 
-1. username -> asm,
+1. username -> rkb,
    pin -> 1111
 
-2. username -> rds,
+2. username -> js,
    pin -> 2222
 
-3. username -> aks,
+3. username -> kka,
    pin -> 3333
 
 ## Tech

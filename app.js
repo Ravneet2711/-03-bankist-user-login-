@@ -7,7 +7,7 @@
 
 // Data
 const account1 = {
-  owner: "Ashish Sharma Mamgain",
+  owner: "Ravneet Kaur Bagga",
 
   movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
 
@@ -31,7 +31,7 @@ const account1 = {
 };
 
 const account2 = {
-  owner: "Richard Daniels Samuels",
+  owner: "Jasmeet Singh",
 
   movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
 
@@ -56,7 +56,7 @@ const account2 = {
 };
 
 const account3 = {
-  owner: "Anish Kumar Saini",
+  owner: "Kamni Kaur Arora",
 
   movements: [200, -200, 340, -300, -20, 50, 400, -460],
 
@@ -81,7 +81,7 @@ const account3 = {
 };
 
 const account4 = {
-  owner: "Jagdeep Singh Bajwa",
+  owner: "Ashish Sharma",
 
   movements: [430, 1000, 700, 50, 90],
 
@@ -199,7 +199,7 @@ const dispMov = function (acc, sort = false) {
 
 // total balance
 
-const dispBal = acc => {
+const dispBal = (acc) => {
   let balance = acc.movements.reduce((acc, curr) => acc + curr);
   labelBalance.textContent = formtNumb(balance.toFixed(2), acc);
   acc.balance = balance;
@@ -209,22 +209,22 @@ const dispBal = acc => {
 
 const dispSumm = function (acc) {
   let sumIN = acc.movements
-    .filter(curr => curr > 0)
+    .filter((curr) => curr > 0)
     .reduce((acc, curr) => acc + curr);
 
   labelSumIn.textContent = formtNumb(sumIN.toFixed(2), acc);
 
   let sumOUT = Math.abs(
-    acc.movements.filter(curr => curr < 0).reduce((acc, curr) => acc + curr),
+    acc.movements.filter((curr) => curr < 0).reduce((acc, curr) => acc + curr),
     0
   );
 
   labelSumOut.textContent = formtNumb(sumOUT.toFixed(2), acc);
 
   let sumINTEREST = acc.movements
-    .filter(curr => curr > 0)
-    .map(curr => (curr * acc.interestRate) / 100)
-    .filter(curr => curr >= 1)
+    .filter((curr) => curr > 0)
+    .map((curr) => (curr * acc.interestRate) / 100)
+    .filter((curr) => curr >= 1)
     .reduce((acc, curr) => acc + curr);
   labelSumInterest.textContent = formtNumb(sumINTEREST.toFixed(2), acc);
 };
@@ -233,11 +233,11 @@ const dispSumm = function (acc) {
 
 let addingUserName = function (acc) {
   acc.forEach(
-    curr =>
+    (curr) =>
       (curr.userName = curr.owner
         .toLowerCase()
         .split(" ")
-        .map(mov => mov[0])
+        .map((mov) => mov[0])
         .join(""))
   );
 };
@@ -298,7 +298,7 @@ btnLogin.addEventListener("click", function (e) {
   inputClosePin.value = inputCloseUsername.value = "";
   inputLoginUsername.blur();
 
-  currAcc = accounts.find(curr => curr.userName === inputLoginUsername.value);
+  currAcc = accounts.find((curr) => curr.userName === inputLoginUsername.value);
 
   if (!currAcc) {
     modalToggleHandler("User doesn't exist");
@@ -357,7 +357,7 @@ btnLogin.addEventListener("click", function (e) {
 btnTransfer.addEventListener("click", function (e) {
   e.preventDefault();
 
-  let reciever = accounts.find(rec => rec.userName === inputTransferTo.value);
+  let reciever = accounts.find((rec) => rec.userName === inputTransferTo.value);
 
   let transferAmount = +inputTransferAmount.value;
 
@@ -393,7 +393,10 @@ btnTransfer.addEventListener("click", function (e) {
 btnLoan.addEventListener("click", function (e) {
   let loan = +inputLoanAmount.value;
   e.preventDefault();
-  if (loan > 0 && currAcc.movements.some(mov => mov > 0 && mov >= 0.1 * loan)) {
+  if (
+    loan > 0 &&
+    currAcc.movements.some((mov) => mov > 0 && mov >= 0.1 * loan)
+  ) {
     currAcc.movements.push(loan);
     currAcc.movementsDates.push(new Date());
     setTimeout(() => {
@@ -420,7 +423,7 @@ btnLoan.addEventListener("click", function (e) {
 btnClose.addEventListener("click", function (e) {
   e.preventDefault();
   let delAcc = accounts.find(
-    curr => curr.userName === inputCloseUsername.value
+    (curr) => curr.userName === inputCloseUsername.value
   );
 
   if (!delAcc || currAcc.pin !== +inputClosePin.value) {
@@ -431,7 +434,7 @@ btnClose.addEventListener("click", function (e) {
 
   if (delAcc && currAcc?.pin === +inputClosePin.value) {
     accounts.splice(
-      accounts.findIndex(curr => curr === delAcc),
+      accounts.findIndex((curr) => curr === delAcc),
       1
     );
     // Hide UI
@@ -467,6 +470,6 @@ modalCloseButton.addEventListener("click", modalToggleHandler);
 
 overlay.addEventListener("click", modalToggleHandler);
 
-document.addEventListener("keydown", e => {
+document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") modalToggleHandler();
 });
